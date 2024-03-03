@@ -14,11 +14,28 @@
 </head>
 <body>
 
+
+
+
 <div class="login-container">
+
+    <% if (validacao.length > 0) { %>
+        <div>
+         <strong>Atenção!!!</strong>
+         <ul>
+             <% for (let i = 0; i < validacao.length; i++) { %>
+                 <li>
+                     <%= validacao[i].msg  %>
+                 </li>
+             <% } %>
+         </ul>
+        </div> 
+     <% } %>
+
     <h2>Login</h2>
     <form action="/autenticar" method="post">
-        <input type="text" placeholder="Usuário" name="usuario" id="usuario" required>
-        <input type="password" placeholder="Senha" name="senha" id="senha" required>
+        <input type="text" placeholder="Usuário" name="usuario" id="usuario" >
+        <input type="password" placeholder="Senha" name="senha" id="senha" >
         <button type="submit">Login</button>
     </form>
 </div>
