@@ -6,6 +6,12 @@ module.exports.login = function (application, req, res) {
     }    
 }
 
+module.exports.sair = function (application, req, res) {
+    req.session.destroy( function (erro) {
+        res.render("seguranca/login",{validacao: {}});
+    });
+}
+
 module.exports.autenticar = function (application, req, res) {
     var dadosForm = req.body;
     
