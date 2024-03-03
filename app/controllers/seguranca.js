@@ -1,8 +1,9 @@
 module.exports.login = function (application, req, res) {
     if (!req.session.autorizado) {
         res.render("seguranca/login", {validacao: [{msg: "Usuário tem que logar"}]});        
-    }
-    
+    } else {
+        res.redirect('/');
+    }    
 }
 
 module.exports.autenticar = function (application, req, res) {
