@@ -15,5 +15,22 @@ module.exports.autenticar = function (application, req, res) {
         return;
     }
 
-    res.send('tudo ok!!!');
+    var connection = application.config.dbConnection();
+    var usuarioDAO = new application.app.models.UsuariosDAO(connection);
+
+    usuarioDAO.autenticar(dadosForm, function (error, result) {
+
+        if (result[0] != undefined) {
+            req.session.autorizado = true;    
+        } else {
+            req.session.autorizado = false;
+        }
+        
+        if (req.session.autorizado) {
+            res.send('Usuário encontrado');
+        } else {
+            res.send('Usuário NÃO encontrado');
+        }
+
+    });
 }
