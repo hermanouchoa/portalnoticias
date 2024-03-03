@@ -1,5 +1,8 @@
 module.exports.login = function (application, req, res) {
-    res.render("seguranca/login", {validacao: {}});
+    if (!req.session.autorizado) {
+        res.render("seguranca/login", {validacao: [{msg: "Usuário tem que logar"}]});        
+    }
+    
 }
 
 module.exports.autenticar = function (application, req, res) {
@@ -22,14 +25,16 @@ module.exports.autenticar = function (application, req, res) {
 
         if (result[0] != undefined) {
             req.session.autorizado = true;    
+            req.session.usuario = result[0];
         } else {
             req.session.autorizado = false;
         }
         
         if (req.session.autorizado) {
-            res.send('Usuário encontrado');
+            //res.send('Usuário encontrado');
+            res.redirect('/')
         } else {
-            res.send('Usuário NÃO encontrado');
+            res.redirect('/login')
         }
 
     });
